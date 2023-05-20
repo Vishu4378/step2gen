@@ -60,10 +60,6 @@ export default function ProductList() {
       return true;
     }
   });
-  console.log("ss", filteredSearchValue);
-  console.log("cc", filteredcategory);
-  console.log("bb", filteredBrand);
-  console.log("pp", filteredPrice);
 
   const handleSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -85,7 +81,6 @@ export default function ProductList() {
   };
   useEffect(() => {
     setProductArr(filteredPrice);
-    console.log("ye");
   }, [searchValue, brand, category, price]);
   return (
     <main>
@@ -112,7 +107,7 @@ export default function ProductList() {
         <div className="grid w-10/12 gap-5 py-5 sm:grid-cols-2 xl:grid-cols-3">
           {productArr?.map((product) => {
             return (
-              <div>
+              <div key={product.id}>
                 <ProductCard {...product} />
               </div>
             );

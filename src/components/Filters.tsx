@@ -20,7 +20,7 @@ const priceArr = [
   },
 ];
 interface PropType {
-  categories: Set<string>[];
+  categories: string[];
   brands: string[];
 }
 
@@ -40,15 +40,13 @@ const Filters: React.FC<PropType> = ({ categories, brands }) => {
           <p className="pb-2">Brand</p>
           <form className="">
             {brands.map((item) => (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2" key={item}>
                 <input
                   onChange={() =>
                     item !== brand ? setBrand(item) : setBrand("")
                   }
                   checked={item === brand}
                   type="checkbox"
-                  id={item}
-                  name={item}
                   value={item}
                 />
                 <label htmlFor={item}>{item}</label>
@@ -62,7 +60,7 @@ const Filters: React.FC<PropType> = ({ categories, brands }) => {
           <p className="pb-2">Category</p>
           <form className="">
             {categories.map((item) => (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2" key={item}>
                 <input
                   onChange={() =>
                     item !== category ? setCategory(item) : setCategory("")
@@ -83,7 +81,7 @@ const Filters: React.FC<PropType> = ({ categories, brands }) => {
           <p className="pb-2">Price</p>
           <form className="">
             {priceArr.map((item) => (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2" key={item.label}>
                 <input
                   onChange={() =>
                     item.label !== price ? setPrice(item.label) : setPrice("")
