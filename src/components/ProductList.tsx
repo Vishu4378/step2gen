@@ -7,6 +7,7 @@ import {
   filterValues,
   searchValues,
 } from "@/pages";
+import NoProductsPage from "./NoProdutsPage";
 
 interface ProductArrType {
   id: number;
@@ -109,14 +110,20 @@ export default function ProductList() {
             </div>
           </div>
         </div>
-        <div className="grid w-10/12 gap-5 py-5 sm:grid-cols-2 xl:grid-cols-3">
-          {filteredBrand?.map((product) => {
-            return (
-              <div key={product.id}>
-                <ProductCard {...product} />
-              </div>
-            );
-          })}
+        <div>
+          {filteredBrand.length > 0 ? (
+            <div className="grid w-10/12 gap-5 py-5 sm:grid-cols-2 xl:grid-cols-3">
+              {filteredBrand.map((product) => {
+                return (
+                  <div key={product.id}>
+                    <ProductCard {...product} />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <NoProductsPage></NoProductsPage>
+          )}
         </div>
       </div>
     </main>
