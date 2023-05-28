@@ -29,8 +29,8 @@ const ProductCard: React.FC<proptype> = ({
         <TfiHeart className="absolute font-semibold text-gray-600 right-4 top-7"></TfiHeart>
         <Image
           className="object-cover w-full h-40"
-          width={100}
-          height={100}
+          width={1000}
+          height={1000}
           src={thumbnail}
           alt="product_image"
         />

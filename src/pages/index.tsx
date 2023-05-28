@@ -16,8 +16,8 @@ export interface SearchContextType {
 export interface FilterContextType {
   category: string;
   setCategory: (value: string) => void;
-  brand: string;
-  setBrand: (value: string) => void;
+  brand: string[];
+  setBrand: (value: string[]) => void;
   price: string;
   setPrice: (value: string) => void;
 }
@@ -28,7 +28,7 @@ export const filterValues = createContext<FilterContextType | null>(null);
 export default function Home() {
   const [searchValue, setSearchValue] = useState<string>("");
   const [category, setCategory] = useState<string>("");
-  const [brand, setBrand] = useState<string>("");
+  const [brand, setBrand] = useState<[]>([]);
   const [price, setPrice] = useState<string>("");
 
   const categories = productsjson.products.map((product) => product?.category);
@@ -37,6 +37,7 @@ export default function Home() {
   const brands = productsjson.products.map((product) => product?.brand);
   const filtered_brands = [...new Set(brands)];
 
+  console.log("brands", brand);
   return (
     <>
       <filterValues.Provider

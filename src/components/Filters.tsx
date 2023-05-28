@@ -29,7 +29,7 @@ const Filters: React.FC<PropType> = ({ categories, brands }) => {
     useContext(filterValues) as FilterContextType;
 
   return (
-    <div className="bg-white rounded-sm w-80 h-5/6">
+    <div className="h-full bg-white rounded-sm w-80">
       <div>
         <div className="flex items-center justify-between px-4 py-2 text-xl font-semibold text-gray-800">
           <p>Filter</p>
@@ -42,10 +42,15 @@ const Filters: React.FC<PropType> = ({ categories, brands }) => {
             {brands.map((item) => (
               <div className="flex items-center space-x-2" key={item}>
                 <input
-                  onChange={() =>
-                    item !== brand ? setBrand(item) : setBrand("")
-                  }
-                  checked={item === brand}
+                  onChange={() => {
+                    const itemRemoved = brand.filter(function (element) {
+                      return element !== item;
+                    });
+
+                    !brand.includes(item)
+                      ? setBrand([...brand, item])
+                      : setBrand([...itemRemoved]);
+                  }}
                   type="checkbox"
                   value={item}
                 />
@@ -65,8 +70,8 @@ const Filters: React.FC<PropType> = ({ categories, brands }) => {
                   onChange={() =>
                     item !== category ? setCategory(item) : setCategory("")
                   }
-                  checked={item === category}
                   type="checkbox"
+                  checked={category === item}
                   id={item}
                   name={item}
                   value={item}

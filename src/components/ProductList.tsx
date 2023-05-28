@@ -34,18 +34,17 @@ export default function ProductList() {
   ) as FilterContextType;
 
   const filteredSearchValue =
-    productsjson.products.filter((product) => {
+    productArr.filter((product) => {
       return product.title.toLowerCase().includes(searchValue.toLowerCase());
     }) || productsjson.products;
+
+  console.log("search", filteredSearchValue);
   const filteredcategory =
     filteredSearchValue.filter((product) => {
       return product.category.toLowerCase().includes(category.toLowerCase());
     }) || productsjson.products;
-  const filteredBrand =
-    filteredcategory.filter((product) => {
-      return product.brand.toLowerCase().includes(brand.toLowerCase());
-    }) || productsjson.products;
-  const filteredPrice = filteredBrand.filter((product) => {
+
+  const filteredPrice = filteredcategory.filter((product) => {
     if (price == "<$100") {
       return product.price < 100;
     } else if (price == "$100-$199") {
@@ -61,16 +60,24 @@ export default function ProductList() {
     }
   });
 
+  const filteredBrand = filteredPrice.filter((product) => {
+    if (brand.length > 0) {
+      return brand.includes(product.brand);
+    } else {
+      return product;
+    }
+  });
+
   const handleSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     if (value === "high_to_low") {
-      const shortedArrHighToLow = [...productArr].sort(
+      const shortedArrHighToLow = [...filteredBrand].sort(
         (a, b) => b.price - a.price
       );
 
       setProductArr(shortedArrHighToLow);
     } else if (value === "low_to_high") {
-      const shortedArrHighToLow = [...productArr].sort(
+      const shortedArrHighToLow = [...filteredBrand].sort(
         (a, b) => a.price - b.price
       );
 
@@ -79,9 +86,7 @@ export default function ProductList() {
       setProductArr(productArr);
     }
   };
-  useEffect(() => {
-    setProductArr(filteredPrice);
-  }, [searchValue, brand, category, price]);
+
   return (
     <main>
       <div>
@@ -105,7 +110,7 @@ export default function ProductList() {
           </div>
         </div>
         <div className="grid w-10/12 gap-5 py-5 sm:grid-cols-2 xl:grid-cols-3">
-          {productArr?.map((product) => {
+          {filteredBrand?.map((product) => {
             return (
               <div key={product.id}>
                 <ProductCard {...product} />

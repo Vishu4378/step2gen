@@ -8,8 +8,6 @@ import { FaUserCircle } from "react-icons/fa";
 import { SearchContextType, searchValues } from "@/pages";
 
 export default function Navbar() {
-  //   const [Value, setValue] = useState<string>("");
-
   const { searchValue, setSearchValue } = useContext(
     searchValues
   ) as SearchContextType;
